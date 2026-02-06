@@ -8,6 +8,7 @@ const app = express();
 const server = http.createServer(app);
 
 app.use(express.json());
+app.use(securityMiddleware());
 
 const PORT = Number(process.env.PORT) || 8080;
 const HOST = process.env.HOST || "0.0.0.0";
@@ -15,8 +16,6 @@ const HOST = process.env.HOST || "0.0.0.0";
 app.get("/", (req, res) => {
   res.json({ message: "Hello from Express!" });
 });
-
-app.use(securityMiddleware());
 
 app.use("/matches", matchRouter);
 

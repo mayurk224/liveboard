@@ -3,10 +3,6 @@ import arcjet, { detectBot, shield, slidingWindow } from "@arcjet/node";
 const arcjetKey = process.env.ARCJET_KEY;
 const arcjetMode = process.env.ARCJET_MODE === "DRY_RUN" ? "DRY_RUN" : "LIVE";
 
-if (!arcjetKey) {
-  throw new Error("ARCJET_KEY is not defined");
-}
-
 export const httpArcjet = arcjetKey
   ? arcjet({
       key: arcjetKey,
@@ -61,8 +57,8 @@ export function securityMiddleware() {
         return res.status(403).json({ error: "Forbidden" });
       }
     } catch (error) {
-      console.error("Arcject Connection Forbidden");
-      return res.status(403).json({ error: "Server Unavailable" });
+      console.error("Arcjet Connection Forbidden");
+      return res.status(503).json({ error: "Service Unavailable" });
     }
 
     next();
