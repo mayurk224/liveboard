@@ -5,10 +5,10 @@ export const listCommentaryQuerySchema = z.object({
 });
 
 export const createCommentarySchema = z.object({
-  minute: z.number().int().nonnegative(),
+  minute: z.number().int().nonnegative().optional(),
   sequence: z.number().int().optional(),
   period: z.string().optional(),
-  eventType: z.string().optional(),
+  eventType: z.string(),
   actor: z.string().optional(),
   team: z.string().optional(),
   message: z.string().min(1, { message: "Message is required" }),

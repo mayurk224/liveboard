@@ -78,10 +78,6 @@ commentaryRouter.post("/", async (req, res) => {
 
   const commentaryData = bodyParsed.data;
 
-  // Ensure eventType is present as it is required by the DB schema
-  // Default to "general" if not provided in the optional field
-  const eventType = commentaryData.eventType || "general";
-
   try {
     // 3. Execute database operations
     const [newCommentary] = await db
@@ -91,7 +87,7 @@ commentaryRouter.post("/", async (req, res) => {
         minute: commentaryData.minute,
         sequence: commentaryData.sequence,
         period: commentaryData.period,
-        eventType: eventType,
+        eventType: commentaryData.eventType,
         actor: commentaryData.actor,
         team: commentaryData.team,
         message: commentaryData.message,
