@@ -1,9 +1,19 @@
 import AgentAPI from "apminsight";
-AgentAPI.config({
-  licenseKey: process.env.APMINSIGHT_LICENSE_KEY,
-  appName: process.env.APMINSIGHT_APP_NAME,
-  port: process.env.APMINSIGHT_PORT,
-});
+const licenseKey = process.env.APMINSIGHT_LICENSE_KEY;
+const appName = process.env.APMINSIGHT_APP_NAME;
+const port = Number(process.env.APMINSIGHT_PORT || process.env.PORT);
+
+if (licenseKey && appName && Number.isFinite(port)) {
+  AgentAPI.config({
+    licenseKey,
+    appName,
+    port,
+  });
+} else {
+  console.warn(
+    "APM setup skipped: Missing or invalid APMINSIGHT_LICENSE_KEY, APMINSIGHT_APP_NAME, or PORT.",
+  );
+}
 
 import express from "express";
 import { matchRouter } from "./routes/matches.js";
