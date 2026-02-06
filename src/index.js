@@ -1,5 +1,9 @@
 import AgentAPI from "apminsight";
-AgentAPI.config();
+AgentAPI.config({
+  licenseKey: process.env.APMINSIGHT_LICENSE_KEY,
+  appName: process.env.APMINSIGHT_APP_NAME,
+  port: process.env.APMINSIGHT_PORT,
+});
 
 import express from "express";
 import { matchRouter } from "./routes/matches.js";
